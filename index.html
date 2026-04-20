@@ -14,7 +14,7 @@
 <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;min-height:-webkit-fill-available;background:#f4f3ef;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
+html,body{height:100%;min-height:-webkit-fill-available;background:transparent;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
 input,button,textarea{font-family:inherit;color:inherit}
 input::placeholder{opacity:.5}
 input:-webkit-autofill{-webkit-text-fill-color:inherit!important}
@@ -2060,9 +2060,9 @@ function App() {
   };
   const t = { bg: dark ? "#0d0d0d" : "#f4f3ef", card: dark ? "#1c1c1e" : "#fff", card2: dark ? "#252527" : "#f0ede8", border: dark ? "#2c2c2e" : "#e5e0d8", text: dark ? "#f2f2f7" : "#1c1c1e", muted: dark ? "#636366" : "#8e8e93", a: theme.a, b: theme.b };
   const S = {
-    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden" },
+    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden", paddingBottom: "env(safe-area-inset-bottom, 0px)" },
     scroll: { overflowY: "auto", flex: 1, paddingBottom: "96px", height: "100%" },
-    tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: "transparent", border: "none", display: "flex", flexDirection: "column", justifyContent: "flex-end", zIndex: 50, paddingBottom: "env(safe-area-inset-bottom, 0px)", pointerEvents: "none" },
+    tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: "transparent", border: "none", display: "flex", flexDirection: "column", justifyContent: "flex-end", zIndex: 50, paddingBottom: 0, pointerEvents: "none" },
     tabBtn: (active) => ({ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, border: "none", background: "none", cursor: "pointer", padding: "10px 0 8px", color: active ? t.a : t.muted, transition: "color .2s, transform .15s", transform: active ? "translateY(-1px)" : "none", pointerEvents: "auto" }),
     tabLbl: { fontSize: 10, fontWeight: 700, letterSpacing: ".03em" },
     card: { background: t.card, borderRadius: 18, padding: 18, marginBottom: 12, border: `1px solid ${t.border}` },
