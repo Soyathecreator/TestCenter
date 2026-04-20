@@ -1771,8 +1771,10 @@ function App() {
   useEffect(() => {
     const card = dark ? "#1c1c1e" : "#ffffff";
     document.body.style.background = card;
+    document.body.style.paddingBottom = "env(safe-area-inset-bottom, 0px)";
     document.documentElement.style.background = card;
     document.getElementById("root").style.background = card;
+    document.getElementById("root").style.paddingBottom = "env(safe-area-inset-bottom, 0px)";
   }, [dark]);
   const [tab, setTab] = useState("home");
   const cuRef = useRef(cu);
@@ -2060,7 +2062,7 @@ function App() {
   };
   const t = { bg: dark ? "#0d0d0d" : "#f4f3ef", card: dark ? "#1c1c1e" : "#fff", card2: dark ? "#252527" : "#f0ede8", border: dark ? "#2c2c2e" : "#e5e0d8", text: dark ? "#f2f2f7" : "#1c1c1e", muted: dark ? "#636366" : "#8e8e93", a: theme.a, b: theme.b };
   const S = {
-    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden", paddingBottom: "env(safe-area-inset-bottom, 0px)" },
+    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden" },
     scroll: { overflowY: "auto", flex: 1, paddingBottom: "96px", height: "100%" },
     tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: "transparent", border: "none", display: "flex", flexDirection: "column", justifyContent: "flex-end", zIndex: 50, paddingBottom: 0, pointerEvents: "none" },
     tabBtn: (active) => ({ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, border: "none", background: "none", cursor: "pointer", padding: "10px 0 8px", color: active ? t.a : t.muted, transition: "color .2s, transform .15s", transform: active ? "translateY(-1px)" : "none", pointerEvents: "auto" }),
