@@ -1770,18 +1770,10 @@ function App() {
   const [themeKey, setThemeKey] = useState(() => sto.get(cu ? `gym_${cu}_theme` : "gym_theme", "orange"));
   useEffect(() => {
     const bg = dark ? "#0d0d0d" : "#f4f3ef";
-    // Set body/html/root to exact same color as app background
-    // so the PWA safe-area zones are invisible (same color, not a bar)
     document.body.style.background = bg;
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
     document.documentElement.style.background = bg;
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.padding = "0";
     const root = document.getElementById("root");
-    root.style.background = bg;
-    root.style.margin = "0";
-    root.style.padding = "0";
+    if (root) root.style.background = bg;
     const tmeta = document.getElementById("theme-color-meta");
     if (tmeta) tmeta.content = bg;
   }, [dark]);
@@ -2071,7 +2063,7 @@ function App() {
   };
   const t = { bg: dark ? "#0d0d0d" : "#f4f3ef", card: dark ? "#1c1c1e" : "#fff", card2: dark ? "#252527" : "#f0ede8", border: dark ? "#2c2c2e" : "#e5e0d8", text: dark ? "#f2f2f7" : "#1c1c1e", muted: dark ? "#636366" : "#8e8e93", a: theme.a, b: theme.b };
   const S = {
-    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden" },
+    app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden", paddingTop: "env(safe-area-inset-top, 0px)" },
     scroll: { overflowY: "auto", flex: 1, paddingBottom: "96px", height: "100%" },
     tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: "transparent", border: "none", display: "flex", flexDirection: "column", justifyContent: "flex-end", zIndex: 50, paddingBottom: 0, pointerEvents: "none" },
     tabBtn: (active) => ({ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, border: "none", background: "none", cursor: "pointer", padding: "10px 0 8px", color: active ? t.a : t.muted, transition: "color .2s, transform .15s", transform: active ? "translateY(-1px)" : "none", pointerEvents: "auto" }),
