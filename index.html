@@ -1769,16 +1769,21 @@ function App() {
   const [dark, setDark] = useState(() => sto.get(cu ? `gym_${cu}_dark` : "gym_dark", false));
   const [themeKey, setThemeKey] = useState(() => sto.get(cu ? `gym_${cu}_theme` : "gym_theme", "orange"));
   useEffect(() => {
-    const card = dark ? "#1c1c1e" : "#ffffff";
-    document.body.style.background = "transparent";
-    document.body.style.paddingBottom = "0";
-    document.documentElement.style.background = "transparent";
+    const bg = dark ? "#0d0d0d" : "#f4f3ef";
+    // Set body/html/root to exact same color as app background
+    // so the PWA safe-area zones are invisible (same color, not a bar)
+    document.body.style.background = bg;
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.documentElement.style.background = bg;
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.padding = "0";
     const root = document.getElementById("root");
-    root.style.background = "transparent";
-    root.style.paddingBottom = "0";
-    // Top safe area gets theme color (status bar area)
+    root.style.background = bg;
+    root.style.margin = "0";
+    root.style.padding = "0";
     const tmeta = document.getElementById("theme-color-meta");
-    if (tmeta) tmeta.content = card;
+    if (tmeta) tmeta.content = bg;
   }, [dark]);
   const [tab, setTab] = useState("home");
   const cuRef = useRef(cu);
