@@ -2061,10 +2061,10 @@ function App() {
   const t = { bg: dark ? "#0d0d0d" : "#f4f3ef", card: dark ? "#1c1c1e" : "#fff", card2: dark ? "#252527" : "#f0ede8", border: dark ? "#2c2c2e" : "#e5e0d8", text: dark ? "#f2f2f7" : "#1c1c1e", muted: dark ? "#636366" : "#8e8e93", a: theme.a, b: theme.b };
   const S = {
     app: { fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif", background: t.bg, color: t.text, height: "100dvh", maxHeight: "100dvh", maxWidth: 430, margin: "0 auto", display: "flex", flexDirection: "column", overflow: "hidden" },
-    scroll: { overflowY: "auto", flex: 1, paddingBottom: "90px", height: "100%" },
-    tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: t.card, borderTop: `1px solid ${t.border}`, display: "flex", flexDirection: "column", zIndex: 50, paddingBottom: 0 },
-    tabBtn: (active) => ({ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, border: "none", background: "none", cursor: "pointer", padding: "8px 0 6px", color: active ? t.a : t.muted, transition: "color .15s" }),
-    tabLbl: { fontSize: 10, fontWeight: 700, letterSpacing: ".04em", textTransform: "uppercase" },
+    scroll: { overflowY: "auto", flex: 1, paddingBottom: "96px", height: "100%" },
+    tabBar: { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 430, background: "transparent", border: "none", display: "flex", flexDirection: "column", zIndex: 50, paddingBottom: 0, pointerEvents: "none" },
+    tabBtn: (active) => ({ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, border: "none", background: "none", cursor: "pointer", padding: "10px 0 8px", color: active ? t.a : t.muted, transition: "color .2s, transform .15s", transform: active ? "translateY(-1px)" : "none", pointerEvents: "auto" }),
+    tabLbl: { fontSize: 10, fontWeight: 700, letterSpacing: ".03em" },
     card: { background: t.card, borderRadius: 18, padding: 18, marginBottom: 12, border: `1px solid ${t.border}` },
     btn: (pr, col) => ({ background: pr ? col || t.a : t.card2, color: pr ? "#fff" : t.text, border: pr ? "none" : `1px solid ${t.border}`, borderRadius: 12, padding: "12px 18px", fontSize: 15, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, justifyContent: "center", width: "100%", boxSizing: "border-box" }),
     inp: { background: t.card2, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 14px", fontSize: 15, color: t.text, width: "100%", outline: "none", fontFamily: "inherit", boxSizing: "border-box" },
@@ -2086,7 +2086,58 @@ function App() {
   }, onUsernameChanged: (nu) => {
     setShowProf(false);
     login(nu);
-  } }), showFrd && /* @__PURE__ */ React.createElement(FriendsModal, { t, S, cu, onClose: () => setShowFrd(false) }), showMenu && /* @__PURE__ */ React.createElement(MenuPanel, { t, S, cu, dark, onClose: () => setShowMenu(false), onNavigate: (id) => { setTab(id); } }), showStreak && /* @__PURE__ */ React.createElement(StreakModal, { t, S, completed, cu, onClose: () => setShowStreak(false) }), /* @__PURE__ */ React.createElement("div", { style: S.scroll, ref: scrollRef }, tab === "home" && /* @__PURE__ */ React.createElement(HomeTab, { t, S, cw, todayDone, markDone, skipWorkout: () => { setRotIdx(p => { const n = (p + 1) % workouts.filter(w => !w.disabled).length; return n; }); }, level, li, xpProg, onSets: () => setShowSets(true), onProf: () => setShowProf(true), onFrd: () => setShowFrd(true), onShowStreak: () => setShowStreak(true), cu, ud, workouts, setWorkouts, friends, completed, waterLog }), tab === "workouts" && /* @__PURE__ */ React.createElement(WorkoutsTab, { t, S, workouts, setWorkouts, rotIdx, setRotIdx, rotMode, setRotMode, checkChals }), tab === "tracker" && /* @__PURE__ */ React.createElement(TrackerTab, { t, S, CT, workouts, trackData, addTrackEntry, removeTrackEntry, waterLog, calLog, cu, friends, completed }), tab === "level" && /* @__PURE__ */ React.createElement(LevelTab, { t, S, xp, level, li, xpProg, doneChals, rotCount, trackCount, themeKey, workoutCount: workouts.length, todayWater, calDaysCount, streak: calcStreak(completed), friendsCount: friends.length }), tab === "tools" && /* @__PURE__ */ React.createElement(ToolsTab, { t, S, todayWater, setTodayWater, calLog, setCalLog, onCalChange: () => setTimeout(() => checkChals({ calDays: Object.values(calLog).filter((d) => d.total > 0).length + 1 }), 50) }), tab === "progress" && /* @__PURE__ */ React.createElement(ProgressTab, { t, S, cu }), tab === "news" && /* @__PURE__ */ React.createElement(NewsTab, { t, S }), tab === "legal" && /* @__PURE__ */ React.createElement(LegalTab, { t, S })), /* @__PURE__ */ React.createElement("div", { id: "gymify-tabbar", style: S.tabBar }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", width: "100%" } }, [["home", "home", "Home"], ["workouts", "dumbbell", "Workouts"], ["tracker", "chart", "Tracking"], ["level", "star", "Level"]].map(([id, ic, lb]) => /* @__PURE__ */ React.createElement("button", { key: id, style: S.tabBtn(tab === id), onClick: () => setTab(id) }, /* @__PURE__ */ React.createElement(Icon, { name: ic, size: 22, color: tab === id ? t.a : t.muted }), /* @__PURE__ */ React.createElement("span", { style: S.tabLbl }, lb))), /* @__PURE__ */ React.createElement("button", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", border: "none", background: "none", cursor: "pointer", padding: "8px 0 6px" }, onClick: () => setShowMenu(true) }, /* @__PURE__ */ React.createElement("div", { style: { background: t.a + "cc", borderRadius: 10, padding: "6px 8px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 10px ${t.a}66` } }, /* @__PURE__ */ React.createElement(Icon, { name: "grid", size: 26, color: "#fff" }))))));
+  } }), showFrd && /* @__PURE__ */ React.createElement(FriendsModal, { t, S, cu, onClose: () => setShowFrd(false) }), showMenu && /* @__PURE__ */ React.createElement(MenuPanel, { t, S, cu, dark, onClose: () => setShowMenu(false), onNavigate: (id) => { setTab(id); } }), showStreak && /* @__PURE__ */ React.createElement(StreakModal, { t, S, completed, cu, onClose: () => setShowStreak(false) }), /* @__PURE__ */ React.createElement("div", { style: S.scroll, ref: scrollRef }, tab === "home" && /* @__PURE__ */ React.createElement(HomeTab, { t, S, cw, todayDone, markDone, skipWorkout: () => { setRotIdx(p => { const n = (p + 1) % workouts.filter(w => !w.disabled).length; return n; }); }, level, li, xpProg, onSets: () => setShowSets(true), onProf: () => setShowProf(true), onFrd: () => setShowFrd(true), onShowStreak: () => setShowStreak(true), cu, ud, workouts, setWorkouts, friends, completed, waterLog }), tab === "workouts" && /* @__PURE__ */ React.createElement(WorkoutsTab, { t, S, workouts, setWorkouts, rotIdx, setRotIdx, rotMode, setRotMode, checkChals }), tab === "tracker" && /* @__PURE__ */ React.createElement(TrackerTab, { t, S, CT, workouts, trackData, addTrackEntry, removeTrackEntry, waterLog, calLog, cu, friends, completed }), tab === "level" && /* @__PURE__ */ React.createElement(LevelTab, { t, S, xp, level, li, xpProg, doneChals, rotCount, trackCount, themeKey, workoutCount: workouts.length, todayWater, calDaysCount, streak: calcStreak(completed), friendsCount: friends.length }), tab === "tools" && /* @__PURE__ */ React.createElement(ToolsTab, { t, S, todayWater, setTodayWater, calLog, setCalLog, onCalChange: () => setTimeout(() => checkChals({ calDays: Object.values(calLog).filter((d) => d.total > 0).length + 1 }), 50) }), tab === "progress" && /* @__PURE__ */ React.createElement(ProgressTab, { t, S, cu }), tab === "news" && /* @__PURE__ */ React.createElement(NewsTab, { t, S }), tab === "legal" && /* @__PURE__ */ React.createElement(LegalTab, { t, S })), /* @__PURE__ */ React.createElement("div", { id: "gymify-tabbar", style: S.tabBar },
+    /* @__PURE__ */ React.createElement("div", { style: {
+      display: "flex", width: "100%",
+      margin: "0 auto 10px",
+      maxWidth: 360,
+      padding: "0 6px",
+      pointerEvents: "auto",
+      background: dark
+        ? "rgba(28,28,30,0.55)"
+        : "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      borderRadius: 28,
+      boxShadow: dark
+        ? "0 4px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)"
+        : "0 4px 24px rgba(0,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.9)",
+      border: dark
+        ? "1px solid rgba(255,255,255,0.12)"
+        : "1px solid rgba(0,0,0,0.06)"
+    } },
+      [["home","home","Home"],["workouts","dumbbell","Workouts"],["tracker","chart","Tracking"],["level","star","Level"]].map(([id,ic,lb]) =>
+        /* @__PURE__ */ React.createElement("button", { key: id, style: S.tabBtn(tab === id), onClick: () => setTab(id) },
+          /* @__PURE__ */ React.createElement("div", { style: {
+            width: 36, height: 36,
+            borderRadius: 12,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: tab === id
+              ? (dark ? t.a + "28" : t.a + "18")
+              : "transparent",
+            transition: "background .2s"
+          } },
+            /* @__PURE__ */ React.createElement(Icon, { name: ic, size: 22, color: tab === id ? t.a : (dark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.35)") })
+          ),
+          /* @__PURE__ */ React.createElement("span", { style: { ...S.tabLbl, color: tab === id ? t.a : (dark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.35)") } }, lb)
+        )
+      ),
+      /* @__PURE__ */ React.createElement("button", {
+        style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, border: "none", background: "none", cursor: "pointer", padding: "10px 0 8px", transition: "transform .15s", pointerEvents: "auto" },
+        onClick: () => setShowMenu(true)
+      },
+        /* @__PURE__ */ React.createElement("div", { style: {
+          width: 36, height: 36, borderRadius: 12,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: `linear-gradient(135deg, ${t.a}, ${t.b})`,
+          boxShadow: `0 3px 10px ${t.a}55`
+        } },
+          /* @__PURE__ */ React.createElement(Icon, { name: "grid", size: 20, color: "#fff" })
+        ),
+        /* @__PURE__ */ React.createElement("span", { style: { ...S.tabLbl, color: t.a, fontWeight: 800 } }, "Menu")
+      )
+    )
+  ));
 }
 function HomeTab({ t, S, cw, todayDone, markDone, skipWorkout, level, li, xpProg, onSets, onProf, onFrd, cu, ud, workouts, setWorkouts, friends, completed, waterLog, onShowStreak }) {
   const wkSwipeStart = React.useRef(null);
