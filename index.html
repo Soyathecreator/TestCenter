@@ -2989,25 +2989,43 @@ function NewsTab({ t, S }) {
 // ─── PROGRESS TAB ─────────────────────────────────────────────────────────────
 function ProgressTab({ t, S, cu }) {
   const storageKey = `gym_${cu}_progress`;
-  const [entries, setEntries] = React.useState(() => {
-    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch { return []; }
-  });
+  const [entries, setEntries] = React.useState(() => sto.get(storageKey, []));
   const [showForm, setShowForm] = React.useState(false);
   const [form, setForm] = React.useState({ date: todayStr(), weight: "", height: "", note: "", img: null });
   const fileRef = React.useRef();
 
+  // Reload entries when cu changes (after login/Firebase sync)
+  React.useEffect(() => {
+    setEntries(sto.get(storageKey, []));
+  }, [cu]);
+
+  const compressImg = (dataUrl, maxPx = 800) => new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxPx / Math.max(img.width, img.height));
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL("image/jpeg", 0.75));
+    };
+    img.src = dataUrl;
+  });
+
   const save = (list) => {
     setEntries(list);
-    localStorage.setItem(storageKey, JSON.stringify(list));
-    if (window._fbDb && window._fbUid && window._fbCurrentUsername)
-      window._fbDb.collection("users").doc(window._fbUid).collection("data").doc(encodeURIComponent(storageKey)).set({ v: JSON.stringify(list) }).catch(() => {});
+    sto.set(storageKey, list);
   };
 
   const onFile = (e) => {
     const f = e.target.files[0];
     if (!f) return;
     const r = new FileReader();
-    r.onload = (ev) => setForm(p => ({ ...p, img: ev.target.result }));
+    r.onload = async (ev) => {
+      const compressed = await compressImg(ev.target.result);
+      setForm(p => ({ ...p, img: compressed }));
+    };
     r.readAsDataURL(f);
   };
 
